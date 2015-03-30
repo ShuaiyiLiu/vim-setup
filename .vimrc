@@ -1,31 +1,36 @@
 syntax on
 set nocompatible
-set guifont=PowerlineSymbols:h14
-set background=dark
-colorscheme solarized
+set guifont=PowerlineSymbols:h15
+if has('gui_running') 
+    set background=dark
+    colorscheme Tomorrow-Night-Eighties
+endif
 
 
 """"""""""""""""""""""""
 " common configuration "
 """"""""""""""""""""""""
 
+set textwidth=80
 set ai
 set bs=2
 set showmatch
 set laststatus=2
-set ruler
+if has('gui_running')
+    set ruler
+    set hls
+    set cursorline
+endif
 
 set expandtab
 set shiftwidth=4
 set tabstop=4
 
-set cursorline
 set number
 set autoread
 
 set ignorecase
 set fileencodings=utf-8,gbk
-set hls
 
 """"""""""""""""""""""""
 " bundle configuration "
@@ -62,3 +67,12 @@ let g:tex_flavor='latex'
 let g:Tex_ViewRule_ps = 'Preview'
 let g:Tex_ViewRule_pdf = 'Skim'
 let g:Tex_ViewRule_dvi = 'TeXniscope'
+
+" Use \lx to compile with XeLatex
+function CompileXeTex()
+    let oldCompileRule=g:Tex_CompileRule_pdf
+    let g:Tex_CompileRule_pdf = 'xelatex -aux-directory=F:/Vim/my_latex_doc/temp --synctex=-1 -src-specials -interaction=nonstopmode $*'
+    call Tex_RunLaTeX()
+    let g:Tex_CompileRule_pdf=oldCompileRule
+endfunction
+map <Leader>lx :<C-U>call CompileXeTex()<CR>
