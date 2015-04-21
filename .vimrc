@@ -6,11 +6,11 @@ if has('gui_running')
     colorscheme Tomorrow-Night-Eighties
 endif
 
-
 """"""""""""""""""""""""
 " common configuration "
 """"""""""""""""""""""""
 
+filetype on
 set textwidth=80
 set ai
 set bs=2
@@ -76,3 +76,11 @@ function CompileXeTex()
     let g:Tex_CompileRule_pdf=oldCompileRule
 endfunction
 map <Leader>lx :<C-U>call CompileXeTex()<CR>
+
+" ycm
+" let g:ycm_server_keep_logfiles = 1
+" let g:ycm_server_log_level = 'debug'
+" let g:ycm_confirm_extra_conf = 0
+let $PATH = '/usr/local/bin:'.$PATH
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_autoclose_preview_window_after_completion=1
