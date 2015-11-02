@@ -3,7 +3,7 @@ set nocompatible
 set guifont=PowerlineSymbols:h15
 if has('gui_running') 
     set background=dark
-    colorscheme Tomorrow-Night-Eighties
+    colorscheme onedark
 endif
 
 """"""""""""""""""""""""
@@ -31,6 +31,18 @@ set autoread
 
 set ignorecase
 set fileencodings=utf-8,gbk
+
+set mousehide
+set virtualedit=onemore " allow for cursor beyond last character
+set spell
+set guioptions-=r
+set guioptions-=L
+
+"" Splits Navigation 
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 """"""""""""""""""""""""
 " bundle configuration "
@@ -82,5 +94,19 @@ map <Leader>lx :<C-U>call CompileXeTex()<CR>
 " let g:ycm_server_log_level = 'debug'
 " let g:ycm_confirm_extra_conf = 0
 let $PATH = '/usr/local/bin:'.$PATH
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>g :YcmCompleter GoTo<CR>
 let g:ycm_autoclose_preview_window_after_completion=1
+
+" Gundo
+nnoremap <F5> :GundoToggle<CR>
+" try to store undo history on local disk
+try
+    set undodir=~/.vim/temp_dirs/undodir
+    set undofile
+catch
+endtry
+
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+
